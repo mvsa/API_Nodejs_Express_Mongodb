@@ -4,7 +4,6 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
 
-const url = 'mongodb+srv://mvsa:mvsa@clusterapi.kbv53.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
 const options = {};
 
 //opções deprecated?

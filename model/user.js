@@ -9,14 +9,25 @@ const UserSchema = new Schema({
 });
 
 
-UserSchema.pre('save', function(next){ // usando notação antiga devido a escopo do this utilizado
+
+// UserSchema.pre('save', function(next){ // usando notação antiga devido a escopo do this utilizado
+//     let user = this;
+//     if(!user.isModified('password')) return next();
+
+//     bcrypt.hash(user.password, 10,(err, encrypted)=>{
+//         user.password = encrypted;
+//         return next();
+//     })
+// });
+
+
+
+UserSchema.pre('save', async function(next){ // usando notação antiga devido a escopo do this utilizado
     let user = this;
     if(!user.isModified('password')) return next();
 
-    bcrypt.hash(user.password, 10,(err, encrypted)=>{
-        user.password = encrypted;
-        return next();
-    })
+    user.password = await bcrypt.hash(user.password,10)
+    return next();
 });
 
 module.exports = mongoose.model('User', UserSchema);
